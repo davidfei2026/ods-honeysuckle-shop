@@ -142,21 +142,45 @@ const [notice, setNotice] = useState('');
     if (cartItems.length === 0) return setNotice('Please add at least one item to the cart.');
     if (!name.trim()) return setNotice('Please enter the customer name.');
     if (delivery === 'delivery' && !address.trim()) return setNotice('Please enter the delivery address.');
-    const order = {
-      id: `OD-${Math.floor(1000 + Math.random() * 9000)}`,
-      date: new Date().toLocaleString(),
-      method: delivery === 'pickup' ? 'Pickup' : 'Delivery',
-      customer: name,
-      contact,
-      total,
-      status: 'In progress',
-      items: cartItems.map((item) => `${item.name} x${item.quantity}`).join(', ')
-    };
-    setOrders((old) => [order, ...old]);
-    setCart({});
-    setNotice('Order placed! It was saved to order history on this device.');
-  }
+   async function placeOrder() {
+  if (cartItems.length === 0)
+    return setNotice('Please add at least one item to the cart.');
 
+  if (!name.trim())
+    return setNotice('Please enter the customer name.');
+
+  if (!user)
+    return setNotice('Please sign in first.');
+
+  if (delivery === 'delivery' && !address.trim())
+    return setNotice('Please enter the delivery address.');
+
+  const order = {
+    customer: name,
+    email: user.email,
+    contact,
+    address,
+    method: delivery === 'pickup' ? 'Pickup' : 'Delivery',
+    total,
+    status: 'Pending',
+    items: cartItems.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price
+    })),
+    createdAt: serverTimestamp()
+  };
+
+  try {
+    await addDoc(collection(db, 'orders'), order);
+
+    setCart({});
+    setNotice('Order saved to Firebase successfully.');
+
+  } catch (err) {
+    setNotice(`Firebase error: ${err.message}`);
+  }
+}
   return (
     <div className="page">
       <header className="topbar">
