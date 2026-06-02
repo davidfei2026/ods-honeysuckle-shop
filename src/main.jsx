@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 import { auth, db } from './firebaseConfig';
-import {
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
