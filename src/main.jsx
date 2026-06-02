@@ -140,7 +140,7 @@ const [notice, setNotice] = useState('');
     });
   }
 
-  function placeOrder() {
+async function placeOrder() {
     if (cartItems.length === 0) return setNotice('Please add at least one item to the cart.');
     if (!name.trim()) return setNotice('Please enter the customer name.');
     if (delivery === 'delivery' && !address.trim()) return setNotice('Please enter the delivery address.');
