@@ -172,6 +172,7 @@ const [notice, setNotice] = useState('');
     })),
     createdAt: serverTimestamp()
   };
+     }
 
   try {
     await addDoc(collection(db, 'orders'), order);
