@@ -3,12 +3,14 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 import { auth, db } from './firebaseConfig';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut
 } from 'firebase/auth';
+
 import {
   addDoc,
   collection,
