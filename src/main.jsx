@@ -2,6 +2,19 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
+import { auth, db } from './firebaseConfig';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
+} from 'firebase/auth';
+import {
+  addDoc,
+  collection,
+  serverTimestamp
+} from 'firebase/firestore';
+
 const products = [
   { id: 'honey-cube', name: 'Honey Cube', category: 'Honeysuckle', price: 5, description: 'Sweet honeysuckle-inspired cube, perfect as a small treat or gift.', stock: 12, bestseller: true, emoji: '🍯' },
   { id: 'honey-pellet-sweeter', name: 'Honey Pellet Sweeter', category: 'Honeysuckle', price: 6, description: 'A stronger sweet option for honeysuckle lovers.', stock: 4, bestseller: false, emoji: '🟡' },
