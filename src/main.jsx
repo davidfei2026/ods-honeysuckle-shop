@@ -140,39 +140,21 @@ const [notice, setNotice] = useState('');
     });
   }
 
-async function placeOrder() {
-    if (cartItems.length === 0) return setNotice('Please add at least one item to the cart.');
-    if (!name.trim()) return setNotice('Please enter the customer name.');
-    if (delivery === 'delivery' && !address.trim()) return setNotice('Please enter the delivery address.');
-   async function placeOrder() {
-  if (cartItems.length === 0)
-    return setNotice('Please add at least one item to the cart.');
-
-  if (!name.trim())
-    return setNotice('Please enter the customer name.');
-
-  if (!user)
-    return setNotice('Please sign in first.');
-
-  if (delivery === 'delivery' && !address.trim())
-    return setNotice('Please enter the delivery address.');
-
-  const order = {
-    customer: name,
-    email: user.email,
-    contact,
-    address,
-    method: delivery === 'pickup' ? 'Pickup' : 'Delivery',
-    total,
-    status: 'Pending',
-    items: cartItems.map(item => ({
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price
-    })),
-    createdAt: serverTimestamp()
-  };
-     }
+const order = {
+  customer: name,
+  email: user.email,
+  contact,
+  address,
+  method: delivery === 'pickup' ? 'Pickup' : 'Delivery',
+  total,
+  status: 'Pending',
+  items: cartItems.map(item => ({
+    name: item.name,
+    quantity: item.quantity,
+    price: item.price
+  })),
+  createdAt: serverTimestamp()
+};
 
   try {
     await addDoc(collection(db, 'orders'), order);
