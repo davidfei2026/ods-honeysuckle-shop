@@ -320,7 +320,7 @@ const [notice, setNotice] = useState('');
         </aside>
       </main>
 
-      <footer>© 2026 OD's Honeysuckle & Mint Products. Demo shop website.</footer>
+     <footer>© 2026 OD's Honeysuckle & Mint Products. Fresh products available for pickup or shipping.</footer>
     </div>
   );
 }
