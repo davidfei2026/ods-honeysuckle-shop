@@ -70,8 +70,10 @@ function App() {
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [address, setAddress] = useState('');
-  const [signedIn, setSignedIn] = useState(false);
-  const [notice, setNotice] = useState('');
+ const [user, setUser] = useState(null);
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [notice, setNotice] = useState('');
 
   useEffect(() => localStorage.setItem('ods-cart', JSON.stringify(cart)), [cart]);
   useEffect(() => localStorage.setItem('ods-orders', JSON.stringify(orders)), [orders]);
