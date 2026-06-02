@@ -77,6 +77,13 @@ const [notice, setNotice] = useState('');
 
   useEffect(() => localStorage.setItem('ods-cart', JSON.stringify(cart)), [cart]);
   useEffect(() => localStorage.setItem('ods-orders', JSON.stringify(orders)), [orders]);
+  useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  return unsubscribe;
+}, []);
 
   const visibleProducts = useMemo(() => {
     let list = products.filter((p) => {
