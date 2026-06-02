@@ -279,18 +279,27 @@ const [notice, setNotice] = useState('');
             {notice && <p className="notice">{notice}</p>}
           </section>
 
-          <section className="panel">
-            <h2>Customer account</h2>
-            {signedIn ? (
-              <div className="success"><b>Signed in</b><p>Demo account mode is active. Firebase can be connected later.</p><button onClick={() => setSignedIn(false)}>Sign out</button></div>
-            ) : (
-              <>
-                <input placeholder="Email" />
-                <input placeholder="Password" type="password" />
-                <button className="secondary full" onClick={() => setSignedIn(true)}>Sign in demo</button>
-              </>
-            )}
-          </section>
+        <section className="panel">
+  <h2>Customer account</h2>
+  {user ? (
+    <div className="success">
+      <b>Signed in</b>
+      <p>{user.email}</p>
+      <button onClick={() => signOut(auth)}>Sign out</button>
+    </div>
+  ) : (
+    <>
+      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+      <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+      <button className="secondary full" onClick={() => signInWithEmailAndPassword(auth, email, password)}>
+        Sign in
+      </button>
+      <button className="secondary full" onClick={() => createUserWithEmailAndPassword(auth, email, password)}>
+        Create account
+      </button>
+    </>
+  )}
+</section>
 
           <section className="panel">
             <h2>Business hours</h2>
